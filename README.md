@@ -14,7 +14,10 @@ For more information on H.264 encoding, read:
 
 https://trac.ffmpeg.org/wiki/Encode/H.264
 
-Further testing needed.
+TO-DO
+- [ ] Further testing into remuxing times
+- [ ] How to use & install
+- [ ] other shi.
 
 TESTS
 
