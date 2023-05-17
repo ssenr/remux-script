@@ -1,13 +1,10 @@
 # remux-script
 
-Batch script that handles remuxing mkv to mp4 with ffmpeg.
+A script that remuxes .mkv files to .mp4 files using ffmpeg.
 
-Heavily inspired by gmzorz's prorec script
-(Literally most of the code is from that script)
+Code heavily inspired by [gmzorz's prorec script:](https://github.com/gmzorz/prerecs)
 
-This does not work.
-
-Author Notes:
+## Author Notes:
 
 -   The -crf value is set to 0 which normally means lossless, so it may be extremely slow depending on file specifics.
 -   The tune is specifically set for film, so the output will have higher deblocking than normal to keep things looking smooth
