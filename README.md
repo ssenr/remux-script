@@ -12,7 +12,9 @@ A script that remuxes .mkv files to .mp4 files using ffmpeg.
 
 ## Usage
 
-Firstly, ensure that ffmpeg is installed; on windows, open the terminal (powershell or cmd) and use the command `ffmpeg`. The output should give version and copyright information followed by various flags. Secondly, download the source code, and move the `remux.bat` file to a directory that contains the files you want to remux (optionally, you can keep the batch file in it's own directory and drag files into the directory or over top the batchfile). On the first launch the `remux.bat` file will create a config file named `conf.ini` (Please see the next section to understand the config file). After runningthe script successully, you should be greeted with a
+Firstly, ensure that ffmpeg is installed; on windows, open the terminal (powershell or cmd) and use the command `ffmpeg`. The output should give version and copyright information followed by various flags. Secondly, download the source code, and move the `remux.bat` file to a directory that contains the files you want to remux (optionally, you can keep the batch file in it's own directory and drag files into the directory or over top the batchfile). On the first launch the `remux.bat` file will create a config file named `conf.ini` (Please see the next section to understand the config file). After running the script successully, you should be greeted with a `Operation(s) completed successfully message`.
+
+
 
 ## Config file
 
@@ -27,18 +29,42 @@ CONV_COLORSPACE=0
 CONV_PRORES=0
 CONV_AVI=0
 ```
+-   **CRF** 
+    -   Constant Rate Factor is an integer value that allows the user to control the level of outputted quality. 
+    -   This value ranges from `0-51` where `0` is **lossless** and `51` is the lowest quality
+    -   By default this is set to `0` to ensure the highest quality for the outputted file, however may result in long encoding times depending on the input files number of frames, bitrate etc.
+-   **PRESET**
+    -   This is a collection of options directly built into ffmpeg that controls the ratio between encoding speed and compression.
+    -   The config uses a set of integers ranging from `0-8` to map itself with the available options within ffmpeg. 
+    -   The mapping is as follows:
+    -   `veryslow=0`,`slower=1`,`slow=2`,`medium=3`,`fast=4`,`faster=5`,`veryfast=6`,`superfast=7`,`ultrafast=8`
+    -   By default, the config is set for a high quality output, hence the `veryslow` preset being used.
+-   **TUNE**
+    -   This is a set of options within ffmpeg that use certain filters such as deblocking dependent on the type of input
+    -   The config uses a set of integers ranging from `0-5` to map itself with the availble options within ffmpeg.
+    -   The mapping is as follows:
+    -   `film=0`,`animation=1`,`grain=2`,`stillimage=3`,`fastdecode=4`,`zerolatency=5`
+    -   By default, the config is set for animation (`1`), since the script was made primarily for remuxing RAW anime.
+    -   For more information on what each setting does, visit the first link after this list.
+-   **CONV_COLORSPACE**
+    -   This is a boolean value (`0 or 1`) that controls the output video's colorspace.
+    -   By default ffmpeg converts all inputted videos into the [YUV Colorspace](https://en.wikipedia.org/wiki/YUV), however, if the inputted file was in the [RGB Colorspace](https://en.wikipedia.org/wiki/RGB_color_model), the colors of the outputted video may look vastly different.
+    -   Using an option of `1` will enable the script to output a video within the RGB Colorspace.
+        -   ***Note***: *If this setting is used, the outputted video file may be larger than the inputted video file.*
+-   **CONV_PRORES**
+    -   This is a boolean value (`0 or 1`) that controls the codec of the outputted video.
+    -   While the goal of this script was to remux and not transcode videos in order to improve process times along with quality, the support has been added for the ProRes codec as it generally plays nicer with editing software, primarily the Adobe Suite.
+    -   By default, the codec of the outputted video is copied from the inputted video, however changing this option to `1` will transcode the inputted video to use the ProRes codec.
+        -   ***Note***: *If this setting is used, the outputted video file may be **much** larger than the inputted video file.*
+-   **CONV_AVI**
+    -   This is a boolean value (`0 or 1`) that will output the video in the `.avi` container.
+        -   ***Note***: *The outputted file may be larger than the inputted file*
+        -   ***Second Note***: *When used in conjuction with the `CONV_PRORES` setting, an exception will be caught and the process will terminate, for more infromation visit https://en.wikipedia.org/wiki/Comparison_of_video_container_formats*.
 
-A small part of the documentation will be dedicated to using and understanding these settings, but for now please visit this [website](https://trac.ffmpeg.org/wiki/Encode/H.264).
+For further understanding of these options, as well as the H.264 encoding, please visit this [website](https://trac.ffmpeg.org/wiki/Encode/H.264).
 
 Code heavily inspired by [gmzorz's prorec script.](https://github.com/gmzorz/prerecs)
 
-## Author Notes:
-
--   The -crf value is set to 0 which normally means lossless, so it may be extremely slow depending on file specifics.
--   The tune is specifically set for animtion, so the output will have higher deblocking than normal to keep things looking smooth
--   The preset is set to veryslow which prioritizes conserving the bitrate.
--   The script assumes that the original .mkv file is in a codec that the .mp4 container supports.
--   Latest version dropped -ar flag which specifies audio sampling frequency. (This is kept the same as the input file)
 
 For more information on H.264 encoding, read:
 
