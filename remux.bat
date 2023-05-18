@@ -156,7 +156,9 @@ if not exist "remuxed" ( mkdir "remuxed" )
         )
     ) 
     REM Ending Command
-echo Finished.
+echo.
+echo %ESC%[92mOperation completed successfully. %ESC%[0m
+echo %ESC%[93mYou may hit any key, or close the prompt. %ESC%[0m
 goto end
 
     REM ------------------------------------------------------------    Scan
@@ -164,6 +166,7 @@ goto end
     REM Function for scanning files
 
     REM List all mkv files in the current directory
+echo.
 echo %ESC%[95mProceeding to remux the following files: %ESC%[95m
 echo. 
 for %%i in ("*.mkv") do ( echo      %ESC%[92m %%i %ESC%[0m)
@@ -206,15 +209,17 @@ for %%a in ("*.mkv") do (
     ) 
 )
     REM Ending Command
-echo Finished.
+echo.
+echo %ESC%[92mOperation's completed successfully. %ESC%[0m
+echo %ESC%[93mYou may hit any key, or close the prompt. %ESC%[0m
 goto end
 
 :help
     REM Usage Instructions
     REM Put docs
-echo Please see the README.md on the github page: https://github.com/ssenr/remux-script
+echo Please see the README.md on the github page: %ESC%[36mhttps://github.com/ssenr/remux-script %ESC%[0m
 echo.
-echo Please open the script file regularly to remux a batch or drag a single video over the script to remux a single video.
+echo %ESC%[91mPlease open the script file regularly to remux a batch or drag a single video over the script to remux a single video. %ESC%[0m
 goto end
 
 :end 

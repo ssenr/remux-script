@@ -2,7 +2,17 @@
 
 A script that remuxes .mkv files to .mp4 files using ffmpeg.
 
-**Both the README.md and script are still somewhat being worked on, however as of version 0.1.0 it is usuable.**
+## Requirements
+
+-   [FFmpeg](https://ffmpeg.org/download.html)
+    -   Get the Windows executable from one ofthe two mirrors. The executable can either by placed in the `C:\Windows\System32` or added as an evironment variable (Path section).
+        -   New environment variables may require a restart before they work.
+-   [Quicktime](https://support.apple.com/kb/dl837?locale=en_US) [OPTIONAL]
+    -   In order to encode using the ProRes codec (if the user chooses to do so), download and install Quicktime.
+
+## Usage
+
+Firstly, ensure that ffmpeg is installed; on windows, open the terminal (powershell or cmd) and use the command `ffmpeg`. The output should give version and copyright information followed by various flags. Secondly, download the source code, and move the `remux.bat` file to a directory that contains the files you want to remux (optionally, you can keep the batch file in it's own directory and drag files into the directory or over top the batchfile). On the first launch the `remux.bat` file will create a config file named `conf.ini` (Please see the next section to understand the config file). After runningthe script successully, you should be greeted with a
 
 ## Config file
 
