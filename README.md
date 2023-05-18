@@ -10,11 +10,12 @@ From the first release (0.1.0) onwrads, the script will utilize a `conf.ini` fil
 
 ```ini
 [MAIN]
-CRF=20
-PRESET=5
+CRF=0
+PRESET=8
 TUNE=1
-ColorspaceConversion=0
-ConvertToProRes=0
+CONV_COLORSPACE=0
+CONV_PRORES=0
+CONV_AVI=0
 ```
 
 A small part of the documentation will be dedicated to using and understanding these settings, but for now please visit this [website](https://trac.ffmpeg.org/wiki/Encode/H.264).
