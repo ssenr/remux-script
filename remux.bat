@@ -4,7 +4,7 @@
 ::
 :: Source Code: https://github.com/ssenr/remux-script
 ::
-:: Script Version: 0.1.0
+:: Script Version: 0.2.0
 ::
 :: Version History: 
 :: 
