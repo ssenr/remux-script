@@ -120,7 +120,7 @@ set name=%~n1
     echo       %ESC%[92m !name! %ESC%[0m
 
     REM Pause for five seconds
-    ping localhost -n 5 > nul
+    ping localhost -n 3 > nul
     
     REM Check if 'remuxed' folder exists, if not create it
 if not exist "remuxed" ( mkdir "remuxed" )
@@ -138,7 +138,17 @@ if not exist "remuxed" ( mkdir "remuxed" )
     if "!CONV_PRORES!"=="1" (
         set ext=".mov"
             REM Check for converting .avi
-        if "!CONV_AVI!"=="1" set ext=".avi"
+            REM If so, exception caught
+        if "!CONV_AVI!"=="1" (
+            echo.
+            echo %ESC%[91m Invalid codec and container combination %ESC%[0m
+            echo %ESC%[92m Please disable CONV_AVI or CONV_PRORES in the conf.ini file %ESC%[0m
+            echo.
+            echo For more information on codec and container support please visit: %ESC%[36m https://en.wikipedia.org/wiki/Comparison_of_video_container_formats %ESC%[0m
+            echo.
+            echo This information can also be found within the README.md on the GitHub page.
+            goto end
+        )
 
         if "!CONV_COLORSPACE!"=="0" (
             ffmpeg -i !file! -crf !CRF! -tune !_tune! -preset !_preset! -movflags +faststart -strict -2 -acodec pcm_f32le -vcodec prores_ks "./remuxed/!name!!ext!"
@@ -173,7 +183,7 @@ for %%i in ("*.mkv") do ( echo      %ESC%[92m %%i %ESC%[0m)
 echo.
 
 REM Pause for five seconds
-ping localhost -n 5 > nul
+ping localhost -n 3 > nul
 
 for %%a in ("*.mkv") do (
     set namescan=%%~na
@@ -190,7 +200,14 @@ for %%a in ("*.mkv") do (
         set ext=".mov"
 
         REM Check for avi conversion
-        if "!CONV_AVI!"=="1" set ext=".avi"
+            REM If so, exception found
+        if "!CONV_AVI!"=="1" (
+            echo %ESC%[91m Invalid codec and container combination %ESC%[0m
+            echo %ESC%[92m Please disable CONV_AVI or CONV_PRORES in the conf.ini file %ESC%[0m
+            echo.
+            echo For more information on codec and container support please visit: %ESC%[36m https://en.wikipedia.org/wiki/Comparison_of_video_container_formats %ESC%[0m
+            goto end
+        )
 
         if "!CONV_COLORSPACE!"=="0" (
             ffmpeg -i "%%a" -crf !CRF! -tune !_tune! -preset !_preset! -movflags +faststart -strict -2 -acodec pcm_f32le -vcodec prores_ks "./remuxed/!namescan!!ext!"
