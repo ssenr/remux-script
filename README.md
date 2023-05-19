@@ -66,6 +66,12 @@ CONV_AVI=0
 
 For further understanding of these options, as well as the H.264 encoding, please visit this [website](https://trac.ffmpeg.org/wiki/Encode/H.264).
 
+## Audio
+
+Audio quality wasn't a **major** focus for the script, but there are a few features. In past versions, the script automatically capped the sampling frequency for auto at `22050`, however, currently the frequency is copied over from the inputted files.
+
+However, in the case that the user wants to transcode to the ProRes codec, the audio quality will be in the `PCM_f32le` standard, in which it is in the floating 32-bit little endian format. The audio format had to be changed since ProRes does not support many audio formats typically seen in videos encoded with HEVC or MPEG.
+
 ## Troubleshooting
 
 A few errors or weird quirks may arise when using this script. However, most problems are likely to be input mismatches. A few common problems are:
