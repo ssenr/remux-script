@@ -2,6 +2,8 @@
 
 A script that remuxes .mkv files to .mp4 files using ffmpeg.
 
+This script was heavily inspired by the [prorec](https://github.com/gmzorz/prerecs) script written by [Gmzorz](https://github.com/gmzorz).
+
 ## Requirements
 
 -   [FFmpeg](https://ffmpeg.org/download.html)
@@ -60,26 +62,40 @@ CONV_AVI=0
     -   This is a boolean value (`0 or 1`) that will output the video in the `.avi` container.
         -   ***Note***: *The outputted file may be larger than the inputted file*
         -   ***Second Note***: *When used in conjuction with the `CONV_PRORES` setting, an exception will be caught and the process will terminate, for more infromation visit https://en.wikipedia.org/wiki/Comparison_of_video_container_formats*.
+    -   Changing the value to `1` will change the outputted format to `.avi`.
 
 For further understanding of these options, as well as the H.264 encoding, please visit this [website](https://trac.ffmpeg.org/wiki/Encode/H.264).
 
-Code heavily inspired by [gmzorz's prorec script.](https://github.com/gmzorz/prerecs)
+## Troubleshooting
 
+A few errors or weird quirks may arise when using this script. However, most problems are likely to be input mismatches. A few common problems are:
 
-For more information on H.264 encoding, read:
+1.  Output video looks vastly different from inputted video.
+    -   This is most likely due to the colorspace conversion. If the inputted file is in the [RGB Colorspace](https://en.wikipedia.org/wiki/RGB_color_model), and the `CONV_COLORSPACE` option is set to `0`, the outputted video will be in the [YUV Colorspace](https://en.wikipedia.org/wiki/YUV).
+    -   The fix for this will be changing the `CONV_COLORSPACE` option in the config file to align with the colorspace. (Simply flip the value, to `0` or `1`)
+2.  Cannot delete the `remuxed` folder nor the outputted video.
+    -   This was an issue I had a few times while creating the script, from what I've gathered this is likely due to a bug with the Windows filesystem. A simple restart fixed this issue for me.
+    -   A couple of characteristics indicating that you need a restart would be not being able to play the video through a player like [VLC](https://www.videolan.org/vlc/), as well as not being able to delete the ouptted file and/or the directory it resides in.
+3.  Codec/Container conversion errors
+    -   Another error that may occur when using the script is having issues trying to remux videos that use obsure codecs.
+    -   Most of the video files you gather will likely be in HEVC or a similar format, however in the case that you are **A.** Missing a codec or **B.** Trying to copy a codec that the container doesn't support you can try these steps:
+        -   **A.** First figure out the codec that you're missing and install it. If you have FFmpeg installed you can use the command right below this section to determine the codec, and then subsequently source it from online.
+        -   **B.** The default container will be `.mp4` which supports a large number of popular and common codecs, however, in the case that there is such an error, I'd try first sourcing the video file from elsewhere. But, in the case that you cannot, try transcoding to ProRes setting the `CONV_PRORES` equal to `1` in the `conf.ini` file (ProRes files are typically 30 times larger than HEVC, so mind the available space).
 
-https://trac.ffmpeg.org/wiki/Encode/H.264
-
-## To-Do
-
--   [ ] Further testing into remuxing times
--   [ ] How to use & install
--   [ ] Auto-config saving
--   [ ] Simple and Advanced modes
--   [ ] Update the README.md
+If there are any other weird errors that occur, you can add an issue in the GitHub repository or message me on discord at `duran#8933`. 
 
 ## Credit
 
 -   KiraEdits for originally introducing me to remuxing with ffmpeg back in 2021.
 -   Gmzorz for his work on prorec as well as help with other projects.
 -   Dre and Sofy for encouragement and showing me love.
+
+## To-Do
+
+-   [ ] Further testing into remuxing times
+-   [x] How to use & install
+-   [ ] Auto-config saving [NO LONGER NEEDED]
+-   [ ] Simple and Advanced modes [NO LONGER NEEDED]
+-   [x] Update the README.md
+
+
