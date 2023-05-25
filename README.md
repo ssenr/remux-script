@@ -96,12 +96,3 @@ If there are any other weird errors that occur, you can add an issue in the GitH
 -   Gmzorz for his work on prorec as well as help with other projects.
 -   Dre and Sofy for encouragement and showing me love.
 
-## To-Do
-
--   [ ] Further testing into remuxing times
--   [x] How to use & install
--   [ ] Auto-config saving [NO LONGER NEEDED]
--   [ ] Simple and Advanced modes [NO LONGER NEEDED]
--   [x] Update the README.md
-
-
