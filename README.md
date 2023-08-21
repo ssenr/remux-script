@@ -88,7 +88,7 @@ A few errors or weird quirks may arise when using this script. However, most pro
         -   **A.** First figure out the codec that you're missing and install it. If you have FFmpeg installed you can use the command right below this section to determine the codec, and then subsequently source it from online.
         -   **B.** The default container will be `.mp4` which supports a large number of popular and common codecs, however, in the case that there is such an error, I'd try first sourcing the video file from elsewhere. But, in the case that you cannot, try transcoding to ProRes setting the `CONV_PRORES` equal to `1` in the `conf.ini` file (ProRes files are typically 30 times larger than HEVC, so mind the available space).
 
-If there are any other weird errors that occur, you can add an issue in the GitHub repository or message me on discord at `duran#8933`. 
+If there are any other weird errors that occur, you can add an issue in the GitHub repository or message me on discord at `duran#8933` (username: ssenr). 
 
 ## Credit
 
